@@ -34,48 +34,75 @@
   * @param name The name of the person to greet.
   */
  function greet(name) {
-    return new Promise(function(resolve, reject) {
-      setTimeout(function() {
-        if (typeof name === 'string') { 
-          resolve('Hello there, ' + name);
-        } else {
-          reject('Name must be a string!');
-        }
-      }, 500);
-    });
+  return new Promise(function(resolve, reject) {
+    setTimeout(function() {
+      if (typeof name === 'string') { 
+        resolve('Hello there, ' + name);
+      } else {
+        reject('Name must be a string!');
+      }
+    }, 500);
+  });
 }
 
 /**
- * Returns the uppercased version of a string.
- * @param {*} str The string to uppercase.
- */
+* Returns the uppercased version of a string.
+* @param {*} str The string to uppercase.
+*/
 function uppercaser(str) {
-    return new Promise(function(resolve, reject) {
-        setTimeout(function() {
-        if (typeof str === 'string') {
-            resolve(str.toUpperCase());
-        } else {
-            reject('Argument to uppercaser must be string');
-        }
-        }, 500);
-    });
+  return new Promise(function(resolve, reject) {
+      setTimeout(function() {
+      if (typeof str === 'string') {
+          resolve(str.toUpperCase());
+      } else {
+          reject('Argument to uppercaser must be string');
+      }
+      }, 500);
+  });
+}
+
+const spacer = async (str) => {
+return new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (typeof str === 'string') {
+      resolve(str.split('').join(' '))
+    } else {
+      reject('Argument to spacer must be string')
+    }
+  }, 500)
+})
 }
 
 async function greetAndUppercase(name) {
-    greeting = await greet(name)
-    uppercasedGreeting = await uppercaser(greeting)
-    return uppercasedGreeting
+  greeting = await greet(name)
+  uppercasedGreeting = await uppercaser(greeting)
+  uppercasedGreeting = await spacer(uppercasedGreeting)
+  return uppercasedGreeting
 }
 
 /* Uncomment me! #1 */
-// result = greetAndUppercase('Ducky')
-// console.log(result)
+result = greetAndUppercase('Ducky')
+console.log(result)
 
 /* Uncomment me! #2 */
-// greetAndUppercase('Ducky')
-//     .then(function(result) {
-//         console.log(result)
-//     })
-//     .catch(function(err) {
-//         console.log(err)
-//     })
+greetAndUppercase('Ducky')
+  .then(function(result) {
+      console.log(result)
+      
+  })
+  .catch(function(err) {
+      console.log(err)
+  })
+
+/* ANSWERS */
+
+/* 1. The function is different because it is asynchronous which means it returns a promise. */
+
+/* 2. It outputs
+Promise { <pending> }
+*/
+
+/* 3. It prints
+Promise { <pending> }
+HELLO THERE, DUCKY
+*/
